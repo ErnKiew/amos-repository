@@ -15,8 +15,9 @@
     <body>
         <h1>The AMOS Repository - Problems</h1>
         <h2>All problems will be formatted as such: "Name (Source) - Difficulty"</h2>
-        <h3>CB --> Codebreaker, CF --> Codeforces</h3>
+        <h3>CB --> Codebreaker, CF --> Codeforces, AOI --> AMOS/Anderson Olympiad of Informatics</h3>
         <h3>Some problems will have spoiler tags that may accidentally serve as hints to the question. We recommend at least thinking through the problem before pressing it.</h3>
+        <h3>Problems may repeat in multiple categories. This is intended.</h3>
         <h3> Difficulty scale:</h3>
         <ol start="0">
             <li>Easy to the point that we hope everyone we've ever taught can solve this with no issues</li>
@@ -24,12 +25,12 @@
             <li>Not hard to most</li>
             <li>Needs a good foundation, but not hard</li>
             <li>Even with a good foundation, requires effort and thinking</li>
-            <li>Difficult, requires good understanding</li>
-            <li>Very tough</li>
+            <li>Challenging, but doable</li>
+            <li>Quite difficult, requires good understanding</li>
             <li>Lower bound of programming heads' capabilities</li>
             <li>Rough upper bound of programming heads' capabilities</li>
             <li>Extremely tough even for programming heads, perhaps need tips/a very long time to think</li>
-            <li>Even programming heads also give up</li>
+            <li>Even programming heads also all give up</li>
         </ol>
         <h2>Syntax and the basics:</h2>
             <ul>
@@ -91,6 +92,9 @@
                     <a href="https://codebreaker.xyz/problem/pigeons">Pigeons (CB) - 1.5/10</a>
                 </li>
                 <li>
+                    <a href="https://codebreaker.xyz/problem/frogs">Frogs (CB) - 2/10</a>
+                </li>
+                <li>
                     <a href="https://codebreaker.xyz/problem/xmas">Xmas (CB) - 2/10</a>
                 </li>
                 <li>
@@ -128,7 +132,7 @@
                 </li>
                 <li>
                     <a href="https://codebreaker.xyz/problem/paint">Paint (CB) - 3/10</a>
-                    <br> Sidenote: There are two methods, one with pair/custom sorting and one with <details>math/common sense</details>.
+                    <br> Sidenote: There are two methods, one with pair/custom sorting and one with <details>math/common sense</details>
                     <br> The difficulty of 3 is assigned to the latter solution. The former solution is harder to implement.
                 </li>
                 <li>
@@ -162,8 +166,72 @@
                 </li>
             </ul>
         <hr>
+        <h2>Greedy problems:</h2>
+        <ul>
+            <li>
+                <a href="https://codebreaker.xyz/problem/potatosalad">Potato salad (CB) - 1.5/10</a>
+            </li>
+            <li>
+                <a href="https://codebreaker.xyz/problem/lunchbox">Lunchbox (CB) - 1.5/10</a>
+            </li>
+            <li>
+                <a href="https://codebreaker.xyz/problem/paint">Paint (CB) - 3/10</a>
+                <br> Sidenote: There are two methods, one with pair/custom sorting and one with <details>math/common sense</details>.
+                <br> The difficulty of 3 is assigned to the latter solution. The former solution is harder to implement.
+            </li>
+            <li>
+                <a href="https://codebreaker.xyz/problem/gss">GSS (CB) - 3/10</a>
+                <br> Sidenote: Many people come up with a close, but incorrect strategy. Test your strategy on some example testcases and try to debug it yourself.
+            </li>
+            <li>
+                <a href="https://codebreaker.xyz/problem/fuel">Fuel (CB) - 3/10</a>
+            </li>
+            <li>
+                <a href="https://codebreaker.xyz/problem/wabot">Wabot (CB) - 3.5/10</a>
+                <br> Sidenote: Strategy is not particularly hard, but implementation might be tough.
+            </li>
+            <li>
+                <a href="https://codebreaker.xyz/problem/stonk">Stonk (CB) - 3.5/10</a>
+                <br> Sidenote: Think about when you'd want to sell a stonk, and when it is better to keep it. Remember, you can keep an infinite number of stonks.
+            </li>
+            <li>
+                <a href="https://codebreaker.xyz/problem/carpark">Carpark (CB) - 4/10</a>
+                <br> Sidenote: This question is tough for a 4/10 difficulty.
+                <br> <details>What if we were to think about the negatives? (empty spaces)</details>
+            </li>
+            <li>
+                <a href="https://codebreaker.xyz/problem/bestplace">Bestplace (CB) - 5/10</a>
+                <br> Sidenote: Don't be afraid of NOI questions! Take them on with fervor and you will improve.
+                <br> Strategy is also hard to find here but implementation is also not too hard.
+            </li>
+            <li>
+                <a href="https://codebreaker.xyz/problem/pandaeyes">Panda eyes</a> (CB) - 5/10</a>
+                <br> Sidenote: Honestly very tough without the right strategy. Finding the strategy is very hard, and deserves the 5/10 rating.
+                <br> Complete spoiler that almost trivialises this problem: <details>Sort by endpoint of the time periods.</details>
+            </li>
+            <li>
+                <a href="https://codebreaker.xyz/problem/competition">Competition</a> (CB) - 5.5/10</a>
+                <br> Sidenote: Don't be afraid of NOI questions! Take them on with fervor and you will improve.
+            </li>
+        </ul>
+        <p> 
+            General tips for greedy:<br>
+            Greedy solutions are solutions where you take the best result in the short-term immediately. The toughness of greedy problems tend to come in two ways.<br>
+            The first is finding the proper greedy solution. Sometimes, there are multiple greedy solutions, and only one (or maybe even none, if it's a DP problem or smth) will work!<br>
+            You need to have a keen eye for good greedy solutions, which is tough and honestly can't really be taught. <br>
+            The second is proving that your greedy solution works. Sometimes, if the greedy solution isn't too complex, it is recommended to just code it out and submit, in case it works.<br>
+            Sometimes however, coding out the greedy solution is a lot of work. Unfortunately, it is also extremely hard to prove that greedy solutions work when they're complex. <br>
+            
+            The nice thing about greedy questions is that often, if the question is greedy, the solution will jump out at you. Humans tend to already try to make greedy strategies,<br>
+            it's just that it doesn't always work. The best idea is just to practice these questions.
+        </p>
+        <hr>
         <h2>Common techniques (sliding window, psum, two pointer, binary search):</h2>
         <ul>
+            <li>
+                <a href="https://codebreaker.xyz/problem/flamethrower">Flamethrower (CB) - 2/10</a>
+                <details>Sliding window. Search it online.</details>
+            </li>
             <li>
                 <a href="https://codebreaker.xyz/problem/prefixsums">Prefix sums (CB) - 2.5/10</a>
                 <br> Sidenote: Not hard at all if you know the technique. Refer to this: <a href="https://usaco.guide/silver/prefix-sums?lang=cpp">PSUMS</a>
@@ -196,6 +264,44 @@
                 <a href="https://codebreaker.xyz/problem/ljubomora">Ljubomora (CB) - 5/10</a>
             </li>
         </ul>
+        
+        <p>General tips for prefix sum (psum) and related techniques: <br>
+            Prefix sums is a super easy way to do range queries. This is because prefix sums allow for range sum queries in O(1) time,<br>
+            which can be helpful in many situations. It is also incredibly easy to implement in contrast to other range query data structures,<br>
+            such as fenwick tree and segment tree, which is why it is placed in common techniques instead.<br><br>
+
+            Related techniques like pmax or pmin can also appear, but more rarely. These are similar to prefix sums, in that they support range queries,<br>
+            but due to the fact that you cannot simply remove a range with these operations, it only supports range min/max in O(1) time if the range starts at<br>
+            the first element. Otherwise, you may have to do a proper linear search, which takes O(n) time, where n is the range of search. <br>
+            Other options for doing actual full range min and max queries are sparse table and segment trees, although these are far more complex <br>
+            techniques that are hard to implement and will not be included here.
+        </p>
+
+        <p>General tips for sliding window and two pointer: <br>
+            Sliding window and two pointer are generally techniques used for subarray questions, where all elements are contiguous.<br>
+            Sliding window is for when the subarray is a fixed size. (See flamethrower, where the size of the window is always K)<br>
+            Two pointer is when the subarray is not a fixed size. It is a more general technique, and while it can do sliding window's job too,<br>
+            it is often unnecessarily complicated this way. Instead, two pointer is often used when the window can be extended or shrunk easily, such as<br>
+            checking subarray sums.
+        </p>
+
+        <p>General tips for binary search: <br>
+            Standard binary search often isn't too complicated, but there are many ways that the question could be spun, like BSTA. <br>
+
+            A common way to check if a problem can be done with BSTA (binary search the answer) is by checking these criteria:
+            <ol>
+                <li>
+                    The answer is monotonic. That means that all answers above or equal to X are valid (not necessarily optimal) and all answers below X are invalid. Then we can binary search for X.
+                </li>
+                <li>
+                    The answer at X is optimal.
+                </li>
+                <li>
+                    The time complexity for checking if an answer is valid is such that when the time complexity is multiplied by log n, it can still pass.
+                </li>
+            </ol>
+            If all these conditions are fulfilled, you can BSTA and solve the question.
+        </p>
         <hr>
         <h2>Data structures (STL and self-implemented, tagged as ST and SI, or PBDS for policy-based DS):</h2>
         <ul>
@@ -297,10 +403,58 @@
                 Exact Data Structure: <details>Priority Queue</details>
             </li>
             <li>
-                <a href="https://codebreaker.xyz/problem/nis">nis (CB) - 5.5/10</a>
+                <a href="https://codebreaker.xyz/problem/nis">nis (CB) - 7/10</a>
+                <br> WARNING: REQUIRES DYNAMIC PROGRAMMING.
                 <br> Type: <details>SI</details>
                 Exact Data Structure: <details>Fenwick tree with index compression</details>
             </li>
         </ul>
+        <p>
+            General tips for data structures:<br>
+            Data structures are a very interesting part of competitive programming. On one hand, they may seem simple at first and seem like they are simply memorisation-based.<br>
+            Instead, these problems can range from quite easy to incredibly tough problems, where it may require the use of modified or hybridised data structures, or even data structures containing<br>
+            more data structures! As such, even though NOI is an open-book contest, we recommend that you at least have a basic <b>understanding</b> of how the data structures work, and how to apply them<br>
+            in a variety of situations.
+        </p>
+        <hr>
+        <h2>Dynamic Programming:</h2>
+        <ul>
+            
+            
+        </ul>
+        <p>
+            General tips for dynamic programming:
+            Dynamic programming is one of the classically hardest yet one of the most common topics for contests. <br>
+            Its name tells you absolutely nothing about how it works however, and it is conceptually very tough to grasp.<br>
+            Dynamic programming is <b>generally</b> the usage of solving subproblems to solve larger subproblems, eventually solving the full problem.<br>
+            This topic is often not well explained even online by anyone, and tends to take a few dedicated sessions from programming heads to teach.<br>
+            Contact us if you need help!<br><br>
+
+            There are two approaches to dynamic programming: <br>
+            1. Memoization - The use of recursion and memorisation of previous sub-problems' solutions to solve the final problem<br>
+            2. Tabulation - The iterative method to solve dynamic programming problems, solving all subproblems in a certain order.<br><br>
+
+            They each have their advantages and disadvantages.<br>
+            Memoization is often easier to implement for extremely tough problems, especially when the order of solving subproblems is unclear. (see omnomnom)<br>
+            Tabulation is often more direct, and can be simpler for easier problems, when the order is well-defined.<br>
+        </p>
+        <hr>
+        <h2>Graph theory:</h2>
+        <ul>
+            
+            
+        </ul>
+        <p>
+            General tips for Graph Theory:
+            Graph theory is generally the other major topic of contests other than DP. While easier to understand than DP, <br>
+            there are many possible concepts that they could test you on, and really challenge your knowledge of the foundations and<br>
+            the absolute depth of your knowledge in graph theory.<br>
+            There are an absolute ton of varied algorithms, from the basics like depth-first and breadth-first searches to<br>
+            Lowest Common Ancestor with binary lifting or Tarjan's offline algorithm, bipartiteness of graph and Kruskal's and Prim's algorithms to find Minimum Spanning Tree.<br><br>
+
+            There's no real tip for graph theory. You need to properly understand the problem statement, and know<br>
+            your stuff very well to be able to solve them. Sometimes however, problems that seem disconnected from graph theory<br>
+            can actually be best solved with graph theory! See <a>https://www.youtube.com/watch?v=_-AfhLQfb6w</a> for a colourful example.<br><br>
+        </p>
     </body>
 </html>
