@@ -17,8 +17,74 @@
         <h1>The AMOS Reference</h1>
         <h2>AMOS Segtree:</h2>
 <pre><code>
-This is placeholder
-code.
+typedef long long stdata;
+inline stdata combine(stdata a, stdata b){
+    return a+b;
+}
+const stdata defval = 0; //0 for sum, maximum potential value for min, minimum potential value for max, UNLESS there is a specified default value
+#define lazyChange (e-s+1)
+//if using lazy prop with min or max operations, change lazyChange to 1, otherwise leave as (e-s+1)
+struct node {
+    long long s,e,m;
+    node *l, *r;
+    stdata v;
+    stdata lazyUpd; //if doing extreme segtree modification with weird lazy, change this, can't be bothered to overcomplicate
+    node(int S_, int E_): s(S_), e(E_), m((s+e)>>1), l(NULL), r(NULL), v(defval), lazyUpd(0) {
+        //if(s!=e) { l = new node(s,m); r = new node(m+1,e); }
+    }
+    
+    inline void instL(){
+        if (l == NULL) l = new node(s,m);
+    }
+    
+    inline void instR(){
+        if (r == NULL) r = new node(m+1,e);
+    }
+    
+    inline stdata forceProp(){
+        if (s==e) {v+=lazyUpd; lazyUpd = 0; return v;}
+        if (lazyUpd != 0) v += lazyChange*lazyUpd, instL(), instR(), l->lazyUpd += lazyUpd, r->lazyUpd += lazyUpd, lazyUpd = 0;
+        return v;
+    }
+    
+    void set(int x, stdata y){
+        if(s==e) { v=y; return; }
+        instL(), instR();
+        if(x>m) r->set(x,y);
+        else l->set(x,y);
+        v = combine(l->v, r->v);
+    }
+    void upd(int x, stdata y){
+        if(s==e) { v+=y; return; }
+        instL(), instR();
+        if(x>m) r->upd(x,y);
+        else l->upd(x,y);
+        v = combine(l->v, r->v);
+    }
+    //range operations assume stdata is a numeric type. (yes, floats work :D)
+    void rangeUpd(int first, int last, stdata c){
+        
+        
+        if (first <= s && last >= e){
+            lazyUpd += c;
+            return;
+        }
+        instL(); instR();
+        if (first <= m){ l->rangeUpd(first, last, c); }
+        if (last >= m+1){ r->rangeUpd(first, last, c); }
+        v = combine(l->forceProp(), r->forceProp());
+    }
+    
+    stdata query(int x, int y){
+        if (s==e) {v += lazyUpd; lazyUpd = 0; return v;}
+        if (lazyUpd != 0) v += lazyChange*lazyUpd, instL(), instR(), l->lazyUpd += lazyUpd, r->lazyUpd += lazyUpd, lazyUpd = 0;
+        if(x==s && y==e) {return v;}
+        instL(); instR();
+        if(y<=m) {return l->query(x, y);}
+        if(x>m) {return r->query(x, y);}
+        return combine(l->query(x, m), r->query(m+1, y));
+    }
+};
 </code></pre>
         <hr>
     </body>
