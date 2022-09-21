@@ -18,19 +18,25 @@
         <h2>AMOS Segtree:</h2>
         <h3>Comments: Ultra flexible (but a bit slow) segment tree meant for very tough questions. Beginners are recommended to use NOIref's segtree instead.</h3>
 <pre><code>
+#include <bits/stdc++.h>
+using namespace std;
+
 typedef long long stdata;
 inline stdata combine(stdata a, stdata b){
     return a+b;
 }
+
 const stdata defval = 0; //0 for sum, maximum potential value for min, minimum potential value for max, UNLESS there is a specified default value
 #define lazyChange (e-s+1)
+#define setSentinel -1 //the value that WILL NEVER be used in rangeSet
 //if using lazy prop with min or max operations, change lazyChange to 1, otherwise leave as (e-s+1)
 struct node {
     long long s,e,m;
     node *l, *r;
     stdata v;
-    stdata lazyUpd; //if doing extreme segtree modification with weird lazy, change this, can't be bothered to overcomplicate
-    node(int S_, int E_): s(S_), e(E_), m((s+e)>>1), l(NULL), r(NULL), v(defval), lazyUpd(0) {
+    stdata lazyUpd, lazySet; //if doing extreme segtree modification with weird lazy, change this, can't be bothered to overcomplicate
+    //set applies first always, but please for your sanity do NOT use both at the same time.
+    node(int S_, int E_): s(S_), e(E_), m((s+e)>>1), l(NULL), r(NULL), v(defval), lazyUpd(0), lazySet(setSentinel) {
         //if(s!=e) { l = new node(s,m); r = new node(m+1,e); }
     }
     
@@ -43,7 +49,8 @@ struct node {
     }
     
     inline stdata forceProp(){
-        if (s==e) {v+=lazyUpd; lazyUpd = 0; return v;}
+        if (s==e) {if (lazySet != setSentinel){v=lazySet; lazySet = setSentinel;} v+=lazyUpd; lazyUpd = 0; return v;}
+        if (lazySet != setSentinel) v = lazyChange*lazySet, instL(), instR(), l->lazySet = lazySet, r->lazySet = lazySet, lazySet = setSentinel;
         if (lazyUpd != 0) v += lazyChange*lazyUpd, instL(), instR(), l->lazyUpd += lazyUpd, r->lazyUpd += lazyUpd, lazyUpd = 0;
         return v;
     }
@@ -62,30 +69,63 @@ struct node {
         else l->upd(x,y);
         v = combine(l->v, r->v);
     }
+    
     //range operations assume stdata is a numeric type. (yes, floats work :D)
+    //comment out all range operations to ignore it all
     void rangeUpd(int first, int last, stdata c){
-        
-        
         if (first <= s && last >= e){
             lazyUpd += c;
             return;
         }
         instL(); instR();
+        forceProp();
         if (first <= m){ l->rangeUpd(first, last, c); }
         if (last >= m+1){ r->rangeUpd(first, last, c); }
         v = combine(l->forceProp(), r->forceProp());
     }
     
-    stdata query(int x, int y){
-        if (s==e) {v += lazyUpd; lazyUpd = 0; return v;}
-        if (lazyUpd != 0) v += lazyChange*lazyUpd, instL(), instR(), l->lazyUpd += lazyUpd, r->lazyUpd += lazyUpd, lazyUpd = 0;
-        if(x==s && y==e) {return v;}
+    void rangeSet(int first, int last, stdata c){
+        if (first <= s && last >= e){
+            lazySet = c;
+            return;
+        }
         instL(); instR();
-        if(y<=m) {return l->query(x, y);}
-        if(x>m) {return r->query(x, y);}
+        forceProp();
+        if (first <= m){ l->rangeSet(first, last, c); }
+        if (last >= m+1){ r->rangeSet(first, last, c); }
+        v = combine(l->forceProp(), r->forceProp());
+    }
+    
+    stdata query(int x, int y){
+        
+        if (s==e) {if (lazySet != setSentinel){v = lazySet; lazySet = setSentinel;} v += lazyUpd; lazyUpd = 0; return v;}
+        if (x <= s && y >= e){ forceProp(); return v;}
+        instL(); instR();
+        forceProp();
+        if(y<=m) { return l->query(x, y);}
+        if(x>m) { return r->query(x, y);}
         return combine(l->query(x, m), r->query(m+1, y));
     }
 };
+
+int main(){
+    ios_base::sync_with_stdio(0); cin.tie(0);
+    int n, q; cin >> n >> q;
+    node st(1, n);
+    
+    for (int x = 0; x < q; x++){
+        int com, a, b, c; cin >> com >> a >> b;
+        if (com == 1){
+            cin >> c;
+            st.rangeUpd(a, b, c);
+        }
+        else{
+            cout << st.query(a, b) << '\n';
+        }
+    }
+    
+}
+    
 </code></pre>
         <hr>
     </body>
