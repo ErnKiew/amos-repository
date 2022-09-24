@@ -21,9 +21,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-typedef long long stdata;
+typedef int stdata;
 inline stdata combine(stdata a, stdata b){
-    return a+b;
+	return min(a, b);
 }
 
 const stdata defval = 0; //0 for sum, maximum potential value for min, minimum potential value for max, UNLESS there is a specified default value
@@ -37,23 +37,23 @@ struct node {
     stdata lazyUpd, lazySet; //if doing extreme segtree modification with weird lazy, change this, can't be bothered to overcomplicate
     //set applies first always, but please for your sanity do NOT use both at the same time.
     node(int S_, int E_): s(S_), e(E_), m((s+e)>>1), l(NULL), r(NULL), v(defval), lazyUpd(0), lazySet(setSentinel) {
-        //if(s!=e) { l = new node(s,m); r = new node(m+1,e); }
+		//if(s!=e) { l = new node(s,m); r = new node(m+1,e); }
     }
     
     inline void instL(){
-        if (l == NULL) l = new node(s,m);
-    }
+		if (l == NULL) l = new node(s,m);
+	}
+	
+	inline void instR(){
+		if (r == NULL) r = new node(m+1,e);
+	}
     
-    inline void instR(){
-        if (r == NULL) r = new node(m+1,e);
-    }
-    
-    inline stdata forceProp(){
-        if (s==e) {if (lazySet != setSentinel){v=lazySet; lazySet = setSentinel;} v+=lazyUpd; lazyUpd = 0; return v;}
-        if (lazySet != setSentinel) v = lazyChange*lazySet, instL(), instR(), l->lazySet = lazySet, r->lazySet = lazySet, lazySet = setSentinel;
-        if (lazyUpd != 0) v += lazyChange*lazyUpd, instL(), instR(), l->lazyUpd += lazyUpd, r->lazyUpd += lazyUpd, lazyUpd = 0;
-        return v;
-    }
+   inline stdata forceProp(){
+		if (s==e) {if (lazySet != setSentinel){v=lazySet; lazySet = setSentinel;} v+=lazyUpd; lazyUpd = 0; return v;}
+		if (lazySet != setSentinel) v = lazyChange*lazySet, instL(), instR(), l->lazySet = lazySet, r->lazySet = lazySet, lazySet = setSentinel;
+		if (lazyUpd != 0) v += lazyChange*lazyUpd, instL(), instR(), l->lazyUpd += lazyUpd, r->lazyUpd += lazyUpd, lazyUpd = 0;
+		return v;
+	}
     
     void set(int x, stdata y){
         if(s==e) { v=y; return; }
@@ -73,35 +73,35 @@ struct node {
     //range operations assume stdata is a numeric type. (yes, floats work :D)
     //comment out all range operations to ignore it all
     void rangeUpd(int first, int last, stdata c){
-        if (first <= s && last >= e){
-            lazyUpd += c;
-            return;
-        }
-        instL(); instR();
-        forceProp();
-        if (first <= m){ l->rangeUpd(first, last, c); }
-        if (last >= m+1){ r->rangeUpd(first, last, c); }
-        v = combine(l->forceProp(), r->forceProp());
-    }
-    
-    void rangeSet(int first, int last, stdata c){
-        if (first <= s && last >= e){
-            lazySet = c;
-            return;
-        }
-        instL(); instR();
-        forceProp();
-        if (first <= m){ l->rangeSet(first, last, c); }
-        if (last >= m+1){ r->rangeSet(first, last, c); }
-        v = combine(l->forceProp(), r->forceProp());
-    }
+		if (first <= s && last >= e){
+			lazyUpd += c;
+			return;
+		}
+		instL(); instR();
+		forceProp();
+		if (first <= m){ l->rangeUpd(first, last, c); }
+		if (last >= m+1){ r->rangeUpd(first, last, c); }
+		v = combine(l->forceProp(), r->forceProp());
+	}
+	
+	void rangeSet(int first, int last, stdata c){
+		if (first <= s && last >= e){
+			lazySet = c;
+			return;
+		}
+		instL(); instR();
+		forceProp();
+		if (first <= m){ l->rangeSet(first, last, c); }
+		if (last >= m+1){ r->rangeSet(first, last, c); }
+		v = combine(l->forceProp(), r->forceProp());
+	}
     
     stdata query(int x, int y){
-        
-        if (s==e) {if (lazySet != setSentinel){v = lazySet; lazySet = setSentinel;} v += lazyUpd; lazyUpd = 0; return v;}
-        if (x <= s && y >= e){ forceProp(); return v;}
-        instL(); instR();
-        forceProp();
+		
+		if (s==e) {if (lazySet != setSentinel){v = lazySet; lazySet = setSentinel;} v += lazyUpd; lazyUpd = 0; return v;}
+		if (x <= s && y >= e){ forceProp(); return v;}
+		instL(); instR();
+		forceProp();
         if(y<=m) { return l->query(x, y);}
         if(x>m) { return r->query(x, y);}
         return combine(l->query(x, m), r->query(m+1, y));
@@ -109,23 +109,22 @@ struct node {
 };
 
 int main(){
-    ios_base::sync_with_stdio(0); cin.tie(0);
-    int n, q; cin >> n >> q;
-    node st(1, n);
-    
-    for (int x = 0; x < q; x++){
-        int com, a, b, c; cin >> com >> a >> b;
-        if (com == 1){
-            cin >> c;
-            st.rangeUpd(a, b, c);
-        }
-        else{
-            cout << st.query(a, b) << '\n';
-        }
-    }
-    
+	ios_base::sync_with_stdio(0); cin.tie(0);
+	int n, q; cin >> n >> q;
+	node st(0, n-1);
+	
+	for (int x = 0; x < q; x++){
+		int com, a, b; cin >> com >> a >> b;
+		if (com == 1){
+			st.set(a, b);
+		}
+		else{
+			cout << st.query(a, b) << '\n';
+		}
+	}
+	
 }
-    
+
 </code></pre>
         <hr>
     </body>
